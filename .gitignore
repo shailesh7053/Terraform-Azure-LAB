@@ -4,4 +4,4 @@ cat <<EOF > .gitignore
 *.tfstate.backup
 crash.log
 .env
-EOF
+EOF*.zip

@@ -1,0 +1,8 @@
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "rg-avd-lab"
+    storage_account_name = "stfslogixghe8bm"
+    container_name       = "tfstate"
+    key                  = "avd-multiple-vm/terraform.tfstate"
+  }
+}

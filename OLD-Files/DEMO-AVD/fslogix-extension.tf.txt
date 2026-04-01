@@ -1,0 +1,13 @@
+resource "azurerm_virtual_machine_extension" "fslogix_config" {
+  name                 = "fslogix-config"
+  virtual_machine_id   = azurerm_windows_virtual_machine.avd_vm.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.10"
+
+  settings = <<SETTINGS
+{
+  "commandToExecute": "powershell -ExecutionPolicy Unrestricted -Command \"New-Item -Path 'HKLM:\\SOFTWARE\\FSLogix\\Profiles' -Force; Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\FSLogix\\Profiles' -Name 'Enabled' -Value 1 -Type DWord; Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\FSLogix\\Profiles' -Name 'VHDLocations' -Value '\\\\\\\\${azurerm_storage_account.fslogix_sa.name}.file.core.windows.net\\\\fslogix' -Type MultiString\""
+}
+SETTINGS
+}

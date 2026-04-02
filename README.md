@@ -4,6 +4,41 @@ This project provides a complete **Terraform-based deployment of Azure Virtual D
 
 It automates the provisioning of core AVD components including networking, host pool, session hosts, workspace, application group, monitoring, and RBAC.
 
+```mermaid
+flowchart TD
+
+    User[Entra ID User] -->|Login| WebClient[AVD Web Client]
+    WebClient -->|Auth MFA/SSO| EntraID[Microsoft Entra ID]
+
+    EntraID --> Gateway[AVD Gateway]
+    Gateway --> HostPool[AVD Host Pool Pooled]
+
+    HostPool --> VM1[Session Host VM 1]
+    HostPool --> VM2[Session Host VM 2]
+
+    VM1 -->|Entra Join| AADLogin[AADLoginForWindows Extension]
+    VM2 -->|Entra Join| AADLogin
+
+    VM1 -->|Register| DSC[AVD DSC Extension]
+    VM2 -->|Register| DSC
+
+    VM1 --> Monitor[Azure Monitor Agent]
+    VM2 --> Monitor
+
+    Monitor --> LogAnalytics[Log Analytics Workspace]
+
+    subgraph Networking
+        VNet[Virtual Network]
+        Subnet[Subnet]
+        NSG[Network Security Group]
+    end
+
+    VM1 --> Subnet
+    VM2 --> Subnet
+    Subnet --> VNet
+    Subnet --> NSG
+
+
 ---
 
 ## 📌 Key Features
@@ -88,37 +123,3 @@ Ideal for:
 * Scalable virtual desktop infrastructure
 
 ---
-
-```mermaid
-flowchart TD
-
-    User[Entra ID User] -->|Login| WebClient[AVD Web Client]
-    WebClient -->|Auth MFA/SSO| EntraID[Microsoft Entra ID]
-
-    EntraID --> Gateway[AVD Gateway]
-    Gateway --> HostPool[AVD Host Pool Pooled]
-
-    HostPool --> VM1[Session Host VM 1]
-    HostPool --> VM2[Session Host VM 2]
-
-    VM1 -->|Entra Join| AADLogin[AADLoginForWindows Extension]
-    VM2 -->|Entra Join| AADLogin
-
-    VM1 -->|Register| DSC[AVD DSC Extension]
-    VM2 -->|Register| DSC
-
-    VM1 --> Monitor[Azure Monitor Agent]
-    VM2 --> Monitor
-
-    Monitor --> LogAnalytics[Log Analytics Workspace]
-
-    subgraph Networking
-        VNet[Virtual Network]
-        Subnet[Subnet]
-        NSG[Network Security Group]
-    end
-
-    VM1 --> Subnet
-    VM2 --> Subnet
-    Subnet --> VNet
-    Subnet --> NSG

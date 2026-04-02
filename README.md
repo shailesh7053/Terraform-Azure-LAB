@@ -89,6 +89,7 @@ Ideal for:
 
 ---
 
+```mermaid
 flowchart TD
 
     User[Entra ID User] -->|Login| WebClient[AVD Web Client]
@@ -120,4 +121,4 @@ flowchart TD
     VM1 --> Subnet
     VM2 --> Subnet
     Subnet --> VNet
-    Subnet --> NSG 
+    Subnet --> NSG

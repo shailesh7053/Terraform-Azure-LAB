@@ -93,10 +93,10 @@ Ideal for:
 flowchart TD
 
     User[Entra ID User] -->|Login| WebClient[AVD Web Client]
-    WebClient -->|Auth (MFA/SSO)| EntraID[Microsoft Entra ID]
+    WebClient -->|Auth MFA/SSO| EntraID[Microsoft Entra ID]
 
     EntraID --> Gateway[AVD Gateway]
-    Gateway --> HostPool[AVD Host Pool (Pooled)]
+    Gateway --> HostPool[AVD Host Pool Pooled]
 
     HostPool --> VM1[Session Host VM 1]
     HostPool --> VM2[Session Host VM 2]

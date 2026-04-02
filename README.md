@@ -3,6 +3,7 @@
 This project provides a complete **Terraform-based deployment of Azure Virtual Desktop (AVD)** in a **cloud-only (Entra ID joined) architecture**, without any on-premises dependency.
 
 It automates the provisioning of core AVD components including networking, host pool, session hosts, workspace, application group, monitoring, and RBAC.
+---
 
 ```mermaid
 flowchart TD
@@ -37,8 +38,6 @@ flowchart TD
     VM2 --> Subnet
     Subnet --> VNet
     Subnet --> NSG
-
-
 ---
 
 ## 📌 Key Features
